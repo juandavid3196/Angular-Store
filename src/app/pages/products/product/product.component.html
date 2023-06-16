@@ -1,1 +1,10 @@
-<p>product works!</p>
+<div class="card">
+    <div class="info-container">
+        <div class="card-name">{{product.name}}</div>
+        <div class="card-description">{{product.description}}</div>
+        <span class="card-price">{{product.price | currency}}</span>
+    </div>
+    <div class="button-box">
+        <button>Buy</button>
+    </div>
+</div>
