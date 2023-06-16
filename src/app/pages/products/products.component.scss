@@ -1,0 +1,54 @@
+.products {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Three columns with equal width */
+    grid-gap: 10px;
+    .card {
+        height: 300px;
+        width: 300px;
+        border: 2px solid rgb(232, 232, 232);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+
+        .info-container {
+            display:flex ;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 250px;
+
+            .card-name {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .card-description {
+                font-size: 16px;
+            }
+
+            .card-price {
+                font-size: 16px;
+                font-style: italic;
+                color: blue;
+                text-align: center;
+            }
+        }
+
+        .button-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            button{
+                font-size: 14px;
+                background-color: rgb(0, 0, 161);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 30px;
+            }
+        }
+    }
+}

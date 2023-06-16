@@ -1,1 +1,12 @@
-<p>products works!</p>
+<section class="products">
+    <div class="card" *ngFor="let product of products">
+        <div class="info-container">
+            <div class="card-name">{{product.name}}</div>
+            <div class="card-description">{{product.description}}</div>
+            <span class="card-price">{{product.price | currency}}</span>
+        </div>
+        <div class="button-box">
+            <button>Buy</button>
+        </div>
+    </div>
+</section>

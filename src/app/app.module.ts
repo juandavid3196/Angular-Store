@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule} from '@angular/common/http';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule, //Modulo de formularios
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
