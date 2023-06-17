@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  quantity$ = this.shoppingCartSvc.quantityAction$;
+  total$ = this.shoppingCartSvc.totalAction$;
+  cart$ = this.shoppingCartSvc.cartAction$;
+
+  constructor(private shoppingCartSvc: ShoppingCartService){}
+ 
 }
