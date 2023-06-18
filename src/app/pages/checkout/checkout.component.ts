@@ -33,4 +33,8 @@ export class CheckoutComponent {
   onPickupOnDelivery(value:boolean):void {
     console.log(value);
   }
+
+  onSubmit() : void {
+    console.log('Guardar');
+  }
 }

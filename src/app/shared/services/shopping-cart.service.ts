@@ -30,17 +30,24 @@ export class ShoppingCartService {
   }
 
   private addToCart(product:Product): void {
-    this.products.push(product);
+    const isProductCart = this.products.find(({id})=> id === product.id);
+    
+    if(isProductCart){
+      isProductCart.qty += 1;
+    }else {
+      this.products.push({...product,qty:1});
+    }
+
     this.cartSubject.next(this.products);
   }
 
   private quantityProducts():void {
-    const quantity = this.products.length;
+    const quantity = this.products.reduce((acc,pro)=> acc += pro.qty,0);
     this.quantitySubject.next(quantity);
   }
 
   private calcTotal(): void {
-    const total = this.products.reduce((acc,pro)=>acc += pro.price,0);
+    const total = this.products.reduce((acc,pro)=>acc += (pro.price * pro.qty),0);
     this.totalSubject.next(total);
   }
 
