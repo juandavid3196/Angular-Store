@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
-    <span>Angular Store</span>
+    <span><a [routerLink]="['/products']">Angular Store</a></span>
     <span class="spacer"></span>
-    <app-cart></app-cart>
+    <app-cart class="mouseHover" (click)="goToCheckout()"></app-cart>
 </mat-toolbar>
 

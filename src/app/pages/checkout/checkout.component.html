@@ -1,0 +1,70 @@
+<ng-container>
+    <div class="container-form">
+        <form>
+            <div class="field-box">
+                <input 
+                    type="text"
+                    matInput
+                    placeholder="Name"
+                    required
+                    [(ngModel)]="model.name"
+                    name="name"
+                    #name="ngModel"
+                />   
+                <mat-error *ngIf="!name.valid || name.pristine">
+                    Name is required
+                </mat-error>
+            </div>
+            <div class="field-box">
+                <mat-radio-group class="form__element">
+                    <p>choose and option:</p>
+                    <mat-radio-button value="pickup" (change)="onPickupOnDelivery(false)">Pickup</mat-radio-button>
+                    <mat-radio-button value="delivery" (change)="onPickupOnDelivery(true)">Delivery</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="field-box">
+                <input 
+                    type="text"
+                    matInput
+                    placeholder="Shipping Address"
+                    required
+                    [(ngModel)]="model.shippingAddress"
+                    name="shippingAddress"
+                    #shippingAddress="ngModel"
+                />   
+                <mat-error *ngIf="!shippingAddress.valid || shippingAddress.pristine">
+                    Shipping  Address is required
+                </mat-error>
+            </div>
+            <div class="field-box">
+                <input 
+                    type="text"
+                    matInput
+                    placeholder="City"
+                    required
+                    [(ngModel)]="model.city"
+                    name="city"
+                    #city="ngModel"
+                />   
+                <mat-error *ngIf="!city.valid || city.pristine">
+                    City is required
+                </mat-error>
+            </div>
+            <div class="field-box">
+                <mat-form-field>
+                    <mat-label>Select me</mat-label>
+                    <mat-select name="store" #store="ngModel" [(ngModel)]="model.store">
+                        <mat-option [value]="store" *ngFor="let store of stores">{{store.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="field-box">
+                <div class="container__button">
+                    <button [disabled]=""  mat-raised-button color="primary" type="submit">Checkout</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>
+    
+

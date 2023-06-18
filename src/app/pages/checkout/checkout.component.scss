@@ -1,0 +1,42 @@
+.container-form {
+    width: 500px;
+    height: 500px;
+    border: 1px solid rgb(188, 188, 188);
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    
+    form {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        .field-box {
+            width: 100%;
+            input {
+                height: 30px;
+                width: -webkit-fill-available;
+                font-size: 15px;
+            }
+
+            .container__button {
+                display:  flex;
+                align-items: center;
+                justify-content: center;
+                button {
+                    background-color: rgb(65 65 230);
+                    color: white;
+                    border: none;
+                    padding: 10px 15px;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
+    
+        }
+    }
+
+    
+}
