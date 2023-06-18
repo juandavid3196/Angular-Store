@@ -2,8 +2,7 @@
     width: 500px;
     border: 1px solid rgb(188, 188, 188);
     border-radius: 5px;
-    margin: 0 auto;
-    margin-top: 10px;
+    margin: 10px auto;
     padding: 10px;
     
     form {
@@ -12,6 +11,11 @@
         flex-direction: column;
         .field-box {
             width: 100%;
+            
+            .select-box {
+                display: flex;
+            }
+
             input {
                 height: 30px;
                 width: -webkit-fill-available;

@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { tap } from 'rxjs';
+import { switchMap} from 'rxjs/operators';
+import { Details, Order } from 'src/app/shared/interfaces/order.interface';
+import { Store } from 'src/app/shared/interfaces/stores.interface';
+import { DataService } from 'src/app/shared/services/data.service';
+import { Product } from '../products/interfaces/product.interface';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -6,6 +15,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
+
+  stores : Store[] = [];
+  cart: Product[] = [];
+  isDelivery : boolean = true;
+  constructor(
+    private dataSvc: DataService, 
+    private shoppingCartSvc : ShoppingCartService,
+    private router:Router){}
+
+  ngOnInit():void {
+    this.getStores();
+    this.getDataCart();
+    this.prepareDetails();
+  }
+
   model = {
     name : '',
     store: '',
@@ -13,28 +37,54 @@ export class CheckoutComponent {
     city: ''
   };
 
-  stores = [
-    {
-      "id": 1,
-      "name": "Park Row at Beekman St",
-      "address": "38 Park Row",
-      "city": "New York",
-      "openingHours": "10:00 - 14:00 and 17:00 - 20:30"
-    },
-    {
-      "id": 2,
-      "name": "Store Alcalá",
-      "address": "Calle de Alcalá, 21",
-      "city": "Madrid",
-      "openingHours": "10:00 - 14:00 and 17:00 - 20:30"
-    },
-  ]
-
   onPickupOnDelivery(value:boolean):void {
-    console.log(value);
+   this.isDelivery = value;
   }
 
-  onSubmit() : void {
-    console.log('Guardar');
+  onSubmit({value}:NgForm) : void {
+    
+    const data:Order = {
+      ...value,
+      data:this.getCurrentDay,
+      pickup: this.isDelivery,
+    };
+
+    this.dataSvc.saveOrder(data)
+    .pipe(
+      tap((res)=>console.log(res)),
+      switchMap(({id:orderId})=> {
+        const details = this.prepareDetails();
+        return this.dataSvc.saveDetailsOrder({details,orderId});
+      }),
+      tap(()=> this.router.navigate(['/thankyou-page'])),
+    )
+    .subscribe()
+  }
+
+  private getStores(): void {
+    this.dataSvc.getStore()
+    .pipe( tap((res:Store[]) => this.stores = res))
+    .subscribe()
+  } 
+
+  private getCurrentDay():string {
+    return new Date().toLocaleDateString();
+  }
+
+  private prepareDetails(): Details[] {
+    const details: Details[] = [];
+    this.cart.forEach((product)=>{
+      const {id:productId,name:productName,qty:quantity} = product;
+      details.push({productId,productName,quantity});
+    })
+    return details;
+  }
+
+  private getDataCart():void {
+    this.shoppingCartSvc.cartAction$
+    .pipe(
+      tap((products:Product[])=> this.cart = products)
+    )
+    .subscribe()
   }
 }
