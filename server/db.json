@@ -186,6 +186,13 @@
       "city": "test",
       "isDelivery": true,
       "id": 6
+    },
+    {
+      "name": "test",
+      "shippingAddress": "test",
+      "city": "test",
+      "isDelivery": true,
+      "id": 7
     }
   ],
   "detailsOrders": [
@@ -310,6 +317,11 @@
       ],
       "orderId": 6,
       "id": 7
+    },
+    {
+      "details": [],
+      "orderId": 7,
+      "id": 8
     }
   ]
 }

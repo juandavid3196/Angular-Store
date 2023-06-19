@@ -8,6 +8,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { Product } from '../products/interfaces/product.interface';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 import { Router } from '@angular/router';
+import { ProductsService } from '../products/services/products.service';
 
 @Component({
   selector: 'app-checkout',
@@ -22,6 +23,7 @@ export class CheckoutComponent {
   constructor(
     private dataSvc: DataService, 
     private shoppingCartSvc : ShoppingCartService,
+    private productSvc: ProductsService,
     private router:Router){}
 
   ngOnInit():void {
@@ -76,8 +78,14 @@ export class CheckoutComponent {
   private prepareDetails(): Details[] {
     const details: Details[] = [];
     this.cart.forEach((product)=>{
-      const {id:productId,name:productName,qty:quantity} = product;
-      details.push({productId,productName,quantity});
+      const {id:productId,name:productName,qty:quantity,stock} = product;
+      const updateStock = (stock-quantity);
+      this.productSvc.updateStock(productId,updateStock)
+      .pipe(
+        tap(()=> details.push({productId,productName,quantity})
+        )
+      )
+      .subscribe()
     })
     return details;
   }
